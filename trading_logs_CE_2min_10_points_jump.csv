@@ -1,2 +1,7 @@
 Timestamp,Level,Message
 2024-10-11 11:05:10,ERROR,An error occurred: [Errno 5] Input/output error
+Timestamp,Level,Message
+2024-10-14 14:47:43,ERROR,An error occurred: single positional indexer is out-of-bounds
+2024-10-14 14:47:44,ERROR,An error occurred: single positional indexer is out-of-bounds
+2024-10-14 14:47:47,ERROR,An error occurred: single positional indexer is out-of-bounds
+2024-10-14 14:47:49,ERROR,An error occurred: single positional indexer is out-of-bounds
