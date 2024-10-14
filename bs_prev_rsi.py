@@ -6,9 +6,11 @@
 '''in this i want when target reaches dont sell just wait for the next tpoint value if the t point value is 10 then wait to reach market 10 points more after the first 10 points if after target market goes back then sellit at the prev 10 points like if it buy at 210 then wait for 220 when 220 reaches wait for 230 if from 2340 it comes back then sell it 5 points back at 225 or if after 220 it falls back sell it at 5 points back'''
 
 import pandas as pd
-import time
+import time, datetime, pytz
 import csv
 import logging
+from pymongo import MongoClient
+import numpy as np
 import json
 import os
 from dhanhq import dhanhq
@@ -102,7 +104,6 @@ def place_buy_order(security_id, quantity, close_val, current_timestamp):
     write_log_entry(current_timestamp, f"Buy order placed at {close_val}", f"Buy order placed at {close_val}. Initial Stop Loss set to: {stop_loss_value}")
 
 
-
 def place_sell_order(security_id, quantity, close_val, current_timestamp):
     global sell_order_placed, buy_order_placed, first_target_reached
     print("Placing a Sell order...")
@@ -146,9 +147,21 @@ csv_log_file = open(log_file, mode='a', newline='')
 csv_writer = csv.writer(csv_log_file)
 csv_writer.writerow(['Timestamp', 'Level', 'Message'])  # Write the header row
 
+
+import pytz
+from datetime import datetime
+
+import pytz
+from datetime import datetime
+
+# Assuming csv_writer and csv_log_file are already defined
 def write_log_entry(timestamp, level, message):
-    csv_writer.writerow([timestamp, level, message])
+    india_timezone = pytz.timezone('Asia/Kolkata')
+    current_time_ist = datetime.now(india_timezone)
+    timestamp_str = current_time_ist.strftime('%Y-%m-%d %H:%M:%S')
+    csv_writer.writerow([timestamp_str, level, message])
     csv_log_file.flush()
+    logging.info(f"{timestamp_str} - {level}: {message}")
 
 # Function to read CSV files and log the content
 def read_csv_file(file_path):
