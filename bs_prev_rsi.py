@@ -9,8 +9,8 @@ import pandas as pd
 import time, datetime, pytz
 import csv
 import logging
-from pymongo import MongoClient
-import numpy as np
+# from pymongo import MongoClient
+# import numpy as np
 import json
 import os
 from dhanhq import dhanhq
